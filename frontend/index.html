@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Inventory Management System</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#2563eb);
+}
+
+.container{
+width:500px;
+background:white;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 20px rgba(0,0,0,.3);
+}
+
+h1{
+text-align:center;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:1px solid #ccc;
+border-radius:8px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:15px;
+background:#2563eb;
+border:none;
+color:white;
+border-radius:8px;
+cursor:pointer;
+}
+
+#msg{
+margin-top:15px;
+text-align:center;
+color:green;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Inventory Management System</h1>
+
+<form id="inventoryForm">
+
+<input type="text" id="productName" placeholder="Product Name" required>
+
+<input type="text" id="category" placeholder="Category" required>
+
+<input type="number" id="quantity" placeholder="Quantity" required>
+
+<input type="number" id="price" placeholder="Price" required>
+
+<button type="submit">Save Product</button>
+
+</form>
+
+<h3 id="msg"></h3>
+
+</div>
+
+<script>
+
+document.getElementById("inventoryForm")
+.addEventListener("submit",async(e)=>{
+
+e.preventDefault();
+
+const data={
+productName:document.getElementById("productName").value,
+category:document.getElementById("category").value,
+quantity:document.getElementById("quantity").value,
+price:document.getElementById("price").value
+};
+
+const response = await fetch(
+"http://localhost:5002/product",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify(data)
+}
+);
+
+const result=await response.json();
+
+document.getElementById("msg").innerText=result.message;
+
+});
+
+</script>
+
+</body>
+</html>

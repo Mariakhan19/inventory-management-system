@@ -1,0 +1,16 @@
+services:
+
+  frontend:
+    image: inventory-frontend
+    ports:
+      - "3002:80"
+
+  backend:
+    image: inventory-backend
+    ports:
+      - "5002:5002"
+
+  mongodb:
+    image: mongo
+    ports:
+      - "27020:27017"
